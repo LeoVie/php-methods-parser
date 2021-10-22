@@ -1,0 +1,9 @@
+parameters:
+# nothing to declare
+
+services:
+  LeoVie\PhpMethodsParser\:
+    resource: '../src/'
+    exclude:
+      - '../src/DependencyInjection/'
+      - '../src/PhpTokenNormalizeBundle.php'
