@@ -7,3 +7,7 @@ services:
     exclude:
       - '../src/DependencyInjection/'
       - '../src/PhpTokenNormalizeBundle.php'
+
+  LeoVie\PhpMethodsParser\Service\MethodsParser:
+    public: true
+    autowire: true
