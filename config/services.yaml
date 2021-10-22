@@ -2,6 +2,9 @@ parameters:
 # nothing to declare
 
 services:
+  _defaults:
+    autowire: true
+
   LeoVie\PhpMethodsParser\:
     resource: '../src/'
     exclude:
@@ -10,7 +13,6 @@ services:
 
   LeoVie\PhpMethodsParser\Service\MethodsParser:
     public: true
-    autowire: true
 
   PhpParser\ParserFactory: ~
   PhpParser\NodeTraverser: ~
