@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace LeoVie\PhpMethodsParser\Service;
 
-use LeoVie\PhpMethodsParser\FileSystem;
+use LeoVie\PhpFilesystem\Service\Filesystem;
 use LeoVie\PhpMethodsParser\NodeVisitor\ExtractMethodsNodeVisitor;
 use LeoVie\PhpMethodsParser\Wrapper\LineAndColumnLexerWrapper;
 use PhpParser\Node;
@@ -20,7 +20,7 @@ class MethodsParser
         private ParserFactory             $parserFactory,
         private NodeTraverser             $nodeTraverser,
         private ExtractMethodsNodeVisitor $extractMethodsNodeVisitor,
-        private FileSystem                $fileSystem,
+        private Filesystem                $filesystem,
         private LineAndColumnLexerWrapper $lineAndColumnLexerWrapper
     )
     {
@@ -37,7 +37,7 @@ class MethodsParser
         $parser = $this->parserFactory->create(ParserFactory::PREFER_PHP7, $this->lineAndColumnLexerWrapper->getLexer());
 
         /** @var Node[] $ast */
-        $ast = $parser->parse($this->fileSystem->readFile($filepath));
+        $ast = $parser->parse($this->filesystem->readFile($filepath));
 
         $this->nodeTraverser->addVisitor($this->extractMethodsNodeVisitor);
         $this->nodeTraverser->traverse($ast);
