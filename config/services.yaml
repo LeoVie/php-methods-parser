@@ -11,3 +11,14 @@ services:
   LeoVie\PhpMethodsParser\Service\MethodsParser:
     public: true
     autowire: true
+
+  PhpParser\ParserFactory: ~
+  PhpParser\NodeTraverser: ~
+  PhpParser\Lexer:
+    arguments:
+      $options:
+        usedAttributes:
+          - startLine
+          - endLine
+          - startFilePos
+          - endFilePos
