@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace LeoVie\PhpTokenNormalize;
+namespace LeoVie\PhpMethodsParser;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
