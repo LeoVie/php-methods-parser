@@ -32,7 +32,8 @@
         "infection/infection": "^0.25.3",
         "phpunit/phpunit": "^9.5",
         "vimeo/psalm": "^4.10",
-        "psalm/plugin-symfony": "^3.0"
+        "psalm/plugin-symfony": "^3.0",
+        "symfony/test-pack": "^1.0"
     },
     "repositories": [
         {
@@ -43,7 +44,7 @@
     "scripts": {
         "psalm": "psalm -c build/config/psalm.xml --show-info=true",
         "phpunit": "phpunit -c build/config/phpunit.xml",
-        "infection": "infection --only-covered --configuration=build/config/infection.json --min-msi=90 --min-covered-msi=90 --coverage=../coverage --threads=4 --test-framework-options='--no-coverage'",
+        "infection": "infection --only-covered --configuration=build/config/infection.json --min-msi=96 --min-covered-msi=96 --coverage=../coverage --threads=4 --test-framework-options='--no-coverage'",
         "infection-after-phpunit": "@infection --skip-initial-tests",
         "test": [
             "@psalm",

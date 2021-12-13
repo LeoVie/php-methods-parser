@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace LeoVie\PhpMethodsParser\Tests\Unit\Service;
 
-use LeoVie\PhpMethodsParser\FileSystem;
+use LeoVie\PhpFilesystem\Service\Filesystem;
 use LeoVie\PhpMethodsParser\NodeVisitor\ExtractMethodsNodeVisitor;
 use LeoVie\PhpMethodsParser\Service\MethodsParser;
 use LeoVie\PhpMethodsParser\Wrapper\LineAndColumnLexerWrapper;
@@ -31,7 +31,7 @@ class MethodsParserTest extends TestCase
         $extractClassMethodsNodeVisitor->method('reset')->willReturnSelf();
         $extractClassMethodsNodeVisitor->method('getMethods')->willReturn(['methods']);
 
-        $fileSystem = $this->createMock(FileSystem::class);
+        $fileSystem = $this->createMock(Filesystem::class);
         $fileSystem->method('readFile')->willReturn('');
 
         $lineAndColumnLexerWrapper = $this->createMock(LineAndColumnLexerWrapper::class);

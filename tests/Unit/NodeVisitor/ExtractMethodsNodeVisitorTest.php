@@ -39,14 +39,14 @@ class ExtractMethodsNodeVisitorTest extends TestCase
         yield 'no ClassMethods' => [
             'expected' => [],
             'nodes' => [
-                $this->createMock(Node::class),
-                $this->createMock(Node::class),
+                $this->mockNode(),
+                $this->mockNode(),
             ],
         ];
 
         $nodes = [
-            $this->createMock(ClassMethod::class),
-            $this->createMock(ClassMethod::class),
+            $this->mockClassMethod(),
+            $this->mockClassMethod(),
         ];
         yield 'only ClassMethods' => [
             'expected' => $nodes,
@@ -54,12 +54,20 @@ class ExtractMethodsNodeVisitorTest extends TestCase
         ];
 
         $nodes = [
-            $this->createMock(ClassMethod::class),
-            $this->createMock(Node::class),
-            $this->createMock(Function_::class),
+            $this->mockClassMethod(),
+            $this->mockNode(),
+            $this->mockFunction(),
         ];
         yield 'mixed Nodes' => [
             'expected' => [$nodes[0], $nodes[2]],
+            'nodes' => $nodes,
+        ];
+
+        $nodes = [
+            $this->mockInterfaceClassMethod(),
+        ];
+        yield 'interface class method' => [
+            'expected' => [],
             'nodes' => $nodes,
         ];
     }
@@ -69,8 +77,8 @@ class ExtractMethodsNodeVisitorTest extends TestCase
         $extractClassMethodsNodeVisitor = new ExtractMethodsNodeVisitor();
 
         $nodes = [
-            $this->createMock(ClassMethod::class),
-            $this->createMock(ClassMethod::class),
+            $this->mockClassMethod(),
+            $this->mockClassMethod(),
         ];
         foreach ($nodes as $node) {
             $extractClassMethodsNodeVisitor->enterNode($node);
@@ -79,5 +87,39 @@ class ExtractMethodsNodeVisitorTest extends TestCase
         $extractClassMethodsNodeVisitor = $extractClassMethodsNodeVisitor->reset();
 
         self::assertSame([], $extractClassMethodsNodeVisitor->getMethods());
+    }
+
+    private function mockNode(): mixed
+    {
+        return $this->createMock(Node::class);
+    }
+
+    private function mockClassMethod(): ClassMethod
+    {
+        $classMethod = $this->createMock(ClassMethod::class);
+        $classMethod->method('getStmts')->willReturn([$this->mockStmt()]);
+
+        return $classMethod;
+    }
+
+    private function mockStmt(): Node\Stmt
+    {
+        return $this->createMock(Node\Stmt::class);
+    }
+
+    private function mockFunction(): Function_
+    {
+        $function = $this->createMock(Function_::class);
+        $function->method('getStmts')->willReturn([$this->mockStmt()]);
+
+        return $function;
+    }
+
+    private function mockInterfaceClassMethod(): ClassMethod
+    {
+        $classMethod = $this->createMock(ClassMethod::class);
+        $classMethod->method('getStmts')->willReturn(null);
+
+        return $classMethod;
     }
 }
