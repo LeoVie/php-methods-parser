@@ -23,12 +23,47 @@ class NodeTypeToStringConverter
     public function convert(null|Identifier|Name|ComplexType $type): string
     {
         return match (true) {
-            $type === null => self::VOID_TYPE,
-            $type instanceof Identifier => $type->name,
-            $type instanceof Name => $type->toString(),
-            $type instanceof UnionType => join('|', array_map(fn(Identifier|Name $x) => $this->convert($x), $type->types)),
-            $type instanceof NullableType => '?' . $this->convert($type->type),
+            $type === null => $this->convertNull(),
+            $type instanceof Identifier => $this->convertIdentifier($type),
+            $type instanceof Name => $this->convertName($type),
+            $type instanceof UnionType => $this->convertUnionType($type),
+            $type instanceof NullableType => $this->convertNullableType($type),
             default => throw NodeTypeNotConvertable::create($type::class),
         };
+    }
+
+    private function convertNull(): string
+    {
+        return self::VOID_TYPE;
+    }
+
+    private function convertIdentifier(Identifier $identifier): string
+    {
+        return $identifier->toString();
+    }
+
+    private function convertName(Name $name): string
+    {
+        return $name->toString();
+    }
+
+    /**
+     * @throws NodeTypeNotConvertable
+     * @throws StringsException
+     */
+    private function convertUnionType(UnionType $unionType): string
+    {
+        $convertedTypes = array_map(fn(Identifier|Name $x) => $this->convert($x), $unionType->types);
+
+        return join('|', $convertedTypes);
+    }
+
+    /**
+     * @throws NodeTypeNotConvertable
+     * @throws StringsException
+     */
+    private function convertNullableType(NullableType $nullableType): string
+    {
+        return '?' . $this->convert($nullableType->type);
     }
 }
