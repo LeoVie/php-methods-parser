@@ -19,7 +19,7 @@ class ExtractMethodsNodeVisitor extends NodeVisitorAbstract
         return new self();
     }
 
-    public function enterNode(Node $node)
+    public function enterNode(Node $node): int|Node|null
     {
         if (($node instanceof ClassMethod || $node instanceof Function_) && $node->getStmts() !== null) {
             $this->methods[] = $node;

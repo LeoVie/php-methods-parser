@@ -1,11 +1,12 @@
 <?php
 
-namespace LeoVie\PhpMethodsParser\Tests\Integration\Service;
+namespace LeoVie\PhpMethodsParser\Tests\Functional\Service;
 
 use LeoVie\PhpMethodsParser\Service\MethodsParser;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use LeoVie\PhpMethodsParser\Tests\Functional\TestingKernel;
+use PHPUnit\Framework\TestCase;
 
-class MethodsParserTest extends KernelTestCase
+class MethodsParserTest extends TestCase
 {
     private const TESTDATA_DIR = __DIR__ . '/../../testdata';
 
@@ -16,11 +17,9 @@ class MethodsParserTest extends KernelTestCase
      */
     public function testExtractMethods(string $filepath, int $expectedCount): void
     {
-        self::bootKernel();
-        $container = self::$kernel->getContainer();
-
-        /** @var MethodsParser $methodsParser */
-        $methodsParser = $container->get(MethodsParser::class);
+        $kernel = new TestingKernel('test', true);
+        $kernel->boot();
+        $methodsParser = $kernel->getContainer()->get(MethodsParser::class);
 
         self::assertCount($expectedCount, $methodsParser->extractMethods($filepath));
     }
