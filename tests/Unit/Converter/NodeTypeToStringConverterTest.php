@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace LeoVie\PhpMethodsParser\Tests\Unit\Converter;
 
-use LeoVie\PhpMethodsParser\Converter\NodeTypeToStringConverter;
+use LeoVie\PhpMethodsParser\Converter\NodeTypeToCodeConverter;
 use LeoVie\PhpMethodsParser\Exception\NodeTypeNotConvertable;
 use PhpParser\Node\ComplexType;
 use PhpParser\Node\Identifier;
@@ -19,14 +19,14 @@ class NodeTypeToStringConverterTest extends TestCase
     /** @dataProvider convertProvider */
     public function testConvert(string $expected, null|Identifier|Name|ComplexType $type): void
     {
-        self::assertSame($expected, (new NodeTypeToStringConverter())->convert($type));
+        self::assertSame($expected, (new NodeTypeToCodeConverter())->convert($type));
     }
 
     public function convertProvider(): array
     {
         return [
             'null' => [
-                'expected' => NodeTypeToStringConverter::VOID_TYPE,
+                'expected' => NodeTypeToCodeConverter::VOID_TYPE,
                 'type' => null,
             ],
             'Identifier' => [
@@ -52,6 +52,6 @@ class NodeTypeToStringConverterTest extends TestCase
     {
         self::expectException(NodeTypeNotConvertable::class);
 
-        (new NodeTypeToStringConverter())->convert(new IntersectionType([new Name('Foo\\Bar'), new Identifier('int')]));
+        (new NodeTypeToCodeConverter())->convert(new IntersectionType([new Name('Foo\\Bar'), new Identifier('int')]));
     }
 }

@@ -12,7 +12,7 @@ use PhpParser\Node\NullableType;
 use PhpParser\Node\UnionType;
 use Safe\Exceptions\StringsException;
 
-class NodeTypeToStringConverter
+class NodeTypeToCodeConverter
 {
     public const VOID_TYPE = 'void';
 

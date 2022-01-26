@@ -9,10 +9,11 @@ services:
     resource: '../src/'
     exclude:
       - '../src/DependencyInjection/'
-      - '../src/PhpTokenNormalizeBundle.php'
+      - '../src/PhpMethodsParserBundle.php'
 
   LeoVie\PhpMethodsParser\Service\MethodsParser:
     public: true
+    autowire: true
 
   PhpParser\ParserFactory: ~
   PhpParser\NodeTraverser: ~

@@ -15,7 +15,7 @@
     "@default": true,
     "UnwrapArrayMap": {
       "ignore": [
-        "LeoVie\\PhpMethodsParser\\Converter\\NodeTypeToStringConverter::convertUnionType"
+        "LeoVie\\PhpMethodsParser\\Converter\\NodeTypeToCodeConverter::convertUnionType"
       ]
     }
   },
