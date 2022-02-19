@@ -6,6 +6,7 @@ namespace LeoVie\PhpMethodsParser\Wrapper;
 
 use PhpParser\Lexer;
 
+/** @psalm-immutable */
 class LineAndColumnLexerWrapper
 {
     public function __construct(private Lexer $lexer)

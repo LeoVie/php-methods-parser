@@ -17,6 +17,11 @@
       "ignore": [
         "LeoVie\\PhpMethodsParser\\Converter\\NodeTypeToCodeConverter::convertUnionType"
       ]
+    },
+    "MethodCallRemoval": {
+      "ignore": [
+        "LeoVie\\PhpMethodsParser\\DependencyInjection\\PhpMethodsParserExtension::load"
+      ]
     }
   },
   "tmpDir": "../cache"
