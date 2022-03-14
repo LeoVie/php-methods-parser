@@ -1,7 +1,7 @@
 {
     "name": "leovie/php-methods-parser",
     "description": "Parse php methods.",
-    "license": "proprietary",
+    "license": "BSD-3-Clause",
     "type": "symfony-bundle",
     "autoload": {
         "psr-4": {
