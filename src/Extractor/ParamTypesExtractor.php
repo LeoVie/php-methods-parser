@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace LeoVie\PhpMethodsParser\Extractor;
 
-use LeoVie\PhpMethodsParser\Converter\NodeTypeToStringConverter;
+use LeoVie\PhpMethodsParser\Converter\NodeTypeToCodeConverter;
 use LeoVie\PhpMethodsParser\Exception\NodeTypeNotConvertable;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\ClassMethod;
@@ -13,7 +13,7 @@ use Safe\Exceptions\StringsException;
 
 class ParamTypesExtractor
 {
-    public function __construct(private NodeTypeToStringConverter $nodeTypeToStringConverter)
+    public function __construct(private NodeTypeToCodeConverter $nodeTypeToCodeConverter)
     {
     }
 
@@ -25,6 +25,6 @@ class ParamTypesExtractor
      */
     public function extract(ClassMethod|Function_ $method): array
     {
-        return array_map(fn(Param $p) => $this->nodeTypeToStringConverter->convert($p->type), $method->params);
+        return array_map(fn(Param $p) => $this->nodeTypeToCodeConverter->convert($p->type), $method->params);
     }
 }

@@ -1,6 +1,8 @@
 <?php
 
-namespace LeoVie\PhpMethodsParser\Tests;
+declare(strict_types=1);
+
+namespace LeoVie\PhpMethodsParser\Tests\Functional;
 
 use LeoVie\PhpFilesystem\PhpFilesystemBundle;
 use LeoVie\PhpMethodsParser\PhpMethodsParserBundle;
@@ -9,9 +11,12 @@ use Symfony\Component\HttpKernel\Kernel;
 
 class TestingKernel extends Kernel
 {
-    public function registerBundles()
+    public function registerBundles(): array
     {
-        return [new PhpMethodsParserBundle(), new PhpFilesystemBundle()];
+        return [
+            new PhpMethodsParserBundle(),
+            new PhpFilesystemBundle(),
+        ];
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader)

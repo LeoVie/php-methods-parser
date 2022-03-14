@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace LeoVie\PhpMethodsParser\Tests\Unit\Extractor;
 
-use LeoVie\PhpMethodsParser\Converter\NodeTypeToStringConverter;
+use LeoVie\PhpMethodsParser\Converter\NodeTypeToCodeConverter;
 use LeoVie\PhpMethodsParser\Extractor\ParamTypesExtractor;
 use PhpParser\Node\ComplexType;
 use PhpParser\Node\Identifier;
@@ -17,14 +17,14 @@ use PHPUnit\Framework\TestCase;
 class ParamTypesExtractorTest extends TestCase
 {
     /** @dataProvider extractProvider */
-    public function testExtract(array $expected, NodeTypeToStringConverter $nodeTypeToStringConverter, ClassMethod|Function_ $method): void
+    public function testExtract(array $expected, NodeTypeToCodeConverter $nodeTypeToStringConverter, ClassMethod|Function_ $method): void
     {
         self::assertSame($expected, (new ParamTypesExtractor($nodeTypeToStringConverter))->extract($method));
     }
 
     public function extractProvider(): \Generator
     {
-        $nodeTypeToStringConverter = $this->createMock(NodeTypeToStringConverter::class);
+        $nodeTypeToStringConverter = $this->createMock(NodeTypeToCodeConverter::class);
         $nodeTypeToStringConverter->method('convert')->willReturnCallback(
             fn(Identifier $type): string => 'converted_' . $type->toString()
         );

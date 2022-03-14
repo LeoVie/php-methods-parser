@@ -12,7 +12,17 @@
     "text": "build/logs/infection.log"
   },
   "mutators": {
-    "@default": true
+    "@default": true,
+    "UnwrapArrayMap": {
+      "ignore": [
+        "LeoVie\\PhpMethodsParser\\Converter\\NodeTypeToCodeConverter::convertUnionType"
+      ]
+    },
+    "MethodCallRemoval": {
+      "ignore": [
+        "LeoVie\\PhpMethodsParser\\DependencyInjection\\PhpMethodsParserExtension::load"
+      ]
+    }
   },
   "tmpDir": "../cache"
 }
